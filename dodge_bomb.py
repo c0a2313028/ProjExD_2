@@ -2,11 +2,17 @@ import os
 import sys
 import pygame as pg
 import random
+import time
 
 
 WIDTH, HEIGHT = 1600, 900
 DELTA ={pg.K_UP: (0, -5), pg.K_DOWN:(0, 5), pg.K_LEFT:(-5, 0), pg.K_RIGHT:(5, 0)}
+
+
+
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+
 
 
 def check_bound(obj_rct:pg.Rect) -> tuple[bool, bool]:
@@ -37,6 +43,7 @@ def main():
     bd_rct.center = random.randint(0, WIDTH), random.randint(0, HEIGHT)
     vx, vy = +5, +5
 
+
     clock = pg.time.Clock()
     tmr = 0
     while True:
@@ -45,7 +52,25 @@ def main():
                 return
             
         if kk_rct.colliderect(bd_rct):  # こうかとんと爆弾がぶつかったら
-            print("Game Over")
+            bg_rct = pg.Surface((1600, 900))  # 新しいSurfaceを作成
+            pg.draw.rect(bg_rct, (0, 0, 0), (0, 0, 1600, 900))  # 四角を描画
+            bg_rct.set_alpha(192)  # 四角を半透明にする
+            screen.blit(bg_rct, [0, 0])  # blitする
+            fonto = pg.font.Font(None, 100)  # fontサイズを100に設定
+            txt = fonto.render("Game Over", True, (255, 255, 255))  # テキストを白に設定
+            coordinate = txt.get_rect()  # 座標を取得
+            coordinate.center = WIDTH/2, HEIGHT/2  # 真ん中の座標を取得
+            screen.blit(txt, coordinate)  # テキストをblit
+            kk_cry = pg.transform.rotozoom(pg.image.load("fig/8.png"), 0, 2.0)
+            kk_cry_1 = kk_cry.get_rect()
+            kk_cry_2 = kk_cry.get_rect()
+            kk_cry_1.center = 500, 450
+            kk_cry_2.center = 1100, 450
+            screen.blit(kk_cry, kk_cry_1)
+            screen.blit(kk_cry, kk_cry_2)
+
+            pg.display.update()  # 画面を更新
+            time.sleep(5)  # 5秒間表示
             return
         screen.blit(bg_img, [0, 0]) 
 
