@@ -5,8 +5,8 @@ import random
 import time
 
 
-WIDTH, HEIGHT = 1600, 900
-DELTA ={pg.K_UP: (0, -5), pg.K_DOWN:(0, 5), pg.K_LEFT:(-5, 0), pg.K_RIGHT:(5, 0)}
+WIDTH, HEIGHT = 1600, 900  # 縦と横の大きさを設定
+DELTA ={pg.K_UP: (0, -5), pg.K_DOWN:(0, 5), pg.K_LEFT:(-5, 0), pg.K_RIGHT:(5, 0)}  #移動量辞書の定義
 
 
 
@@ -58,16 +58,16 @@ def main():
             screen.blit(bg_rct, [0, 0])  # blitする
             fonto = pg.font.Font(None, 100)  # fontサイズを100に設定
             txt = fonto.render("Game Over", True, (255, 255, 255))  # テキストを白に設定
-            coordinate = txt.get_rect()  # 座標を取得
+            coordinate = txt.get_rect()  # Surfaceの存在する範囲を取得
             coordinate.center = WIDTH/2, HEIGHT/2  # 真ん中の座標を取得
             screen.blit(txt, coordinate)  # テキストをblit
-            kk_cry = pg.transform.rotozoom(pg.image.load("fig/8.png"), 0, 2.0)
-            kk_cry_1 = kk_cry.get_rect()
-            kk_cry_2 = kk_cry.get_rect()
-            kk_cry_1.center = 500, 450
-            kk_cry_2.center = 1100, 450
-            screen.blit(kk_cry, kk_cry_1)
-            screen.blit(kk_cry, kk_cry_2)
+            kk_cry = pg.transform.rotozoom(pg.image.load("fig/8.png"), 0, 2.0)  # 画像読み込み
+            kk_cry_1 = kk_cry.get_rect()  # Sarfaceの存在する範囲を取得
+            kk_cry_2 = kk_cry.get_rect()  # Sarfaceの存在する範囲を取得
+            kk_cry_1.center = 500, 450  # 座標を設定
+            kk_cry_2.center = 1100, 450  # 座標を設定
+            screen.blit(kk_cry, kk_cry_1)  # blit
+            screen.blit(kk_cry, kk_cry_2)  # blit
 
             pg.display.update()  # 画面を更新
             time.sleep(5)  # 5秒間表示
@@ -92,7 +92,7 @@ def main():
             vx *= -1
         if not tate:  # 縦方向にはみ出てたら
             vy *= -1
-        pg.display.update()
+        pg.display.update()  # 画面を更新
         tmr += 1
         clock.tick(50)
 
